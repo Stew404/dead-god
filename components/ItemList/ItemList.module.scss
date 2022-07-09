@@ -1,0 +1,13 @@
+.items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 0 2rem;
+
+    margin-top: 50px;
+
+    max-width: calc(100vw - var(--aside-width));
+
+    overflow-y: auto;
+}
