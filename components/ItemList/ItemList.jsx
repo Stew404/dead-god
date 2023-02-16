@@ -1,22 +1,26 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+const React = require("react");
 
-import { useEffect, useState } from 'react';
-import styles from './ItemList.module.scss';
+import styles from "./ItemList.module.scss";
 
-import Item from '../Item/Item';
+import Item from "../Item/Item";
+import { useSelector } from "react-redux";
 
-export default function ItemList({items}){
+import _ from "lodash";
 
-    return(
+const ItemList = () => {
+    const items = useSelector((state) => state.itemsData.value);
+
+    if (_.isEmpty(items)) {
+        return <main />;
+    }
+
+    return (
         <main className={styles.items}>
-            {
-            items.map((item, index)=>{
-                console.log(item)
-                return <Item itemData={item} key={index}/>
-            })
-            }
-
+            {items.map((item, index) => {
+                return <Item itemData={item} key={index} />;
+            })}
         </main>
-    )
-}
+    );
+};
+
+export default React.memo(ItemList);

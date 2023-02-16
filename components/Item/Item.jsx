@@ -1,37 +1,59 @@
-const React = require('react');
+const React = require("react");
 
 import { useDispatch } from "react-redux";
-import {add, clear} from "../../features/hoveredItem/hoveredItemSlice"
+import {
+  set as setHoveredItem,
+  clear as clearHoveredItem,
+} from "../../features/hoveredItem/hoveredItemSlice";
+import { set as setSelectedItem } from "../../features/selectedItem/selectedItemSlice";
+import { open } from "../../features/modal/modalSlice";
 
-import Image from "next/image"
-import styles from "./Item.module.scss"
+import Image from "next/image";
+import styles from "./Item.module.scss";
 
-export default function Item({itemData}){
+export default function Item({ itemData }) {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
-    
-    let iconWidth = itemData.icon_width
-    let iconHeight = itemData.icon_height
+  const iconWidth = itemData.icon_width;
+  const iconHeight = itemData.icon_height;
 
-    let wrapperStyle = {
-        width: `${iconWidth}px`,
-        height: `${iconHeight}px`
-    }
+  let wrapperStyle = {
+    width: `${iconWidth}px`,
+    height: `${iconHeight}px`,
+  };
 
-    let imgStyle = {
-        imageRendering: "pixelated"
-    }
+  let imgStyle = {
+    imageRendering: "pixelated",
+  };
 
-    const mouseOverHandler = ()=>{
-        dispatch(add(itemData))
-    }
+  const mouseOverHandler = () => {
+    dispatch(setHoveredItem(itemData));
+  };
 
-    const mouseOutHandler = ()=>{
-        dispatch(clear())
-    }
-    return(
-        <div className={styles.item} style={wrapperStyle} onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>
-            <Image width={iconWidth} height={iconHeight} style={imgStyle} src={itemData.item_icon} alt="" />
-        </div>
-    )
+  const mouseOutHandler = () => {
+    dispatch(clearHoveredItem());
+  };
+
+  const onClickHandler = () => {
+    dispatch(setSelectedItem(itemData));
+    dispatch(open());
+  };
+
+  return (
+    <div
+      className={styles.item}
+      style={wrapperStyle}
+      onMouseOver={mouseOverHandler}
+      onMouseOut={mouseOutHandler}
+      onClick={onClickHandler}
+    >
+      <Image
+        width={iconWidth}
+        height={iconHeight}
+        style={imgStyle}
+        src={itemData.item_icon}
+        alt=""
+      />
+    </div>
+  );
 }

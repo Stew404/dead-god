@@ -27,3 +27,34 @@ body {
       font-size: 8px;
   }
 }
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.ReactModal__Overlay--after-open{
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+  opacity: 0;
+}
+
+.tooltip {
+  max-width: 600px;
+  background-color: #303030;
+  padding: 10px 15px;
+  box-shadow: 0px 0px 9px 5px rgb(0 0 0 / 20%);
+  border-radius: 3px !important;
+  font-size: 1.6rem !important;
+  color: rgb(224, 223, 223);
+
+  &.show {
+    opacity: 1 !important;
+  }
+
+  @media screen and (max-width: 610px) {
+    max-width: 90vw;
+  }
+}

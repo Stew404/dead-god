@@ -2,8 +2,18 @@ import Head from 'next/head'
 
 import Header from '../components/Header/Header'
 import Body from '../components/Body/Body'
+import { useDispatch } from 'react-redux'
+import { set } from "../features/itemsData/itemsDataSlice";
+import { useEffect } from 'react';
 
 export default function Home({items}) {
+  
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(set(items))
+  }, [items])
+
   return (
     <>
       <Head>
@@ -13,6 +23,7 @@ export default function Home({items}) {
       </Head>
       <Header/>
       <Body items={items}/>
+      <div id="modal"></div>
     </>
   )
 }

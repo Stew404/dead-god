@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const hoveredItemSlice = createSlice({
-  name: 'hoveredItem',
+export const selectedItemSlice = createSlice({
+  name: 'selectedItem',
   initialState: {
     value: {}
   },
@@ -15,6 +15,6 @@ export const hoveredItemSlice = createSlice({
   }
 })
 
-export const { set, clear } = hoveredItemSlice.actions
+export const { set, clear } = selectedItemSlice.actions
 
-export default hoveredItemSlice.reducer
+export default selectedItemSlice.reducer
