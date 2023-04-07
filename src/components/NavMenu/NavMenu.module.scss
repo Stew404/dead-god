@@ -1,0 +1,73 @@
+@import "@/styles/mixins.scss";
+
+.nav {
+    height: 100%;
+}
+
+.navlist {
+    display: flex;
+    height: inherit;
+}
+
+.navopen, .navclose {
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    @include hoverEffect;
+
+    i {
+        font-size: 3rem;
+        color: var(--text-color);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        position: fixed;
+        background-color: #464646;
+        width: 250px;
+        height: 100vh;
+
+        padding-top: 50px;
+
+        transform: translateX(-100%);
+
+        transition: all .3s ease-in-out; 
+    }
+    
+    .navlist {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+    }
+
+    .navopen, .navclose {
+        display: flex;
+        background-color: transparent;
+
+        position: absolute;
+        top: 0;
+
+        border: none;
+    }
+
+    .navopen {      
+        left: 100%;
+    }
+
+    .navclose {
+        right: 0;
+    }
+
+    .opened {
+        transform: translateX(0);
+    }
+
+    .opened .navopen{
+        display: none;
+    }
+}

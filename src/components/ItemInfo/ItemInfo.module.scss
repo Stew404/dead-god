@@ -1,0 +1,28 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.id {
+    font-size: 1.4rem;
+}
+
+.quality {
+    font-size: 1.4rem;
+    color: #F3EC06;
+}
+
+.title {
+    font-size: 2.4rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.ingame_description {
+    font-size: 1.4rem;
+    text-align: center;
+    color: #9bcd35;
+}

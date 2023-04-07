@@ -1,0 +1,36 @@
+@import "@/styles/mixins.scss";
+
+.navitem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    list-style: none;
+}
+
+.navlink {
+    display: flex;
+    align-items: center;
+
+    padding: 0 .7em;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    font-size: 1.6rem;
+
+    color: var(--text-color);
+
+    height: 100%;
+
+    transition: all .1s ease;
+
+    @include hoverEffect;
+}
+
+@media (max-width: 768px) {
+    .navlink {
+        width: 100%;
+        padding: .5em 1em;
+    }
+}

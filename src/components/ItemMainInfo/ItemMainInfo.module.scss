@@ -1,0 +1,49 @@
+.item {
+
+    &__header {
+    
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    
+        border-bottom: 1px solid var(--text-color);
+    
+    }
+    
+    &__info {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    &__quality {
+        font-size: 1.2rem;
+        color: #F3EC06;
+    }
+    
+    &__id {
+        font-size: 1.2rem;
+    }
+    
+    &__main {
+        text-align: center;
+    }
+    
+    &__title {
+        font-size: 1.6rem;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+    
+    &__ingame-description {
+        font-size: 1.4rem;
+        color: #9bcd35;
+    }
+    
+    &__description {
+        font-size: 1.4rem;
+        
+        p{
+            line-height: 1.4;
+            margin: 8px;
+        }
+    }
+}
