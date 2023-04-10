@@ -6,12 +6,29 @@
         margin-bottom: 15px;
     
         border-bottom: 1px solid var(--text-color);
+
+        &_tooltip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        
+            border-bottom: 1px solid var(--text-color);
+        }
     
     }
     
     &__info {
-        display: flex;
-        justify-content: space-between;
+
+        &_aside {    
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &_tooltip {
+            flex-direction: column;
+        }
     }
     
     &__quality {

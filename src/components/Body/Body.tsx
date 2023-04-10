@@ -11,7 +11,7 @@ import { useState,useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import Modal from "react-modal";
-// import Tooltip from "@huner2/react-tooltip";
+import {Tooltip} from "react-tooltip"
 
 import { close as closeModal } from "@/redux/slices/modalSlice";
 import { clear as clearModalItem } from "@/redux/slices/modalItemSlice";
@@ -71,6 +71,8 @@ export default function Body() {
             >
                 <ItemInfo item={modalItem}></ItemInfo>
             </Modal>
+            
+            <Tooltip className={styles.tooltip} id="modal-tooltip" place="bottom" float={true} noArrow={true} positionStrategy="absolute"/>
         {/* 
             {isMounted && (
                 <Tooltip

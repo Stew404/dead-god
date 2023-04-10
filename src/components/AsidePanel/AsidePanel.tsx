@@ -8,7 +8,7 @@ import ItemMainInfo from "../ItemMainInfo/ItemMainInfo";
 export default function AsidePanel() {
     return (
         <aside className={styles.aside}>
-            <ItemMainInfo/>
+            <ItemMainInfo type="aside"/>
         </aside>
     );
 }

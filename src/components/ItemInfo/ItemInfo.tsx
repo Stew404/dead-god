@@ -1,10 +1,13 @@
 import React from "react";
 
+import {Tooltip} from "react-tooltip"
+
 import ItemDescription from "../ItemDescription/ItemDescription";
 
 import styles from "./ItemInfo.module.scss";
 
 import { ItemOrEmpty } from "../../types/Item";
+import ItemImage from "../ItemImage/ItemImage";
 
 export default function ItemInfo({ item }: {item: ItemOrEmpty}) {
     return (
@@ -21,7 +24,7 @@ export default function ItemInfo({ item }: {item: ItemOrEmpty}) {
                     </p>
                 </div>
                 <div>
-                    <img src={item.icon.url} alt={item.name.en} />
+                    <ItemImage itemIcon={item.icon} itemName={item.name} scale={1}/>
                 </div>
             </header>
             <ItemDescription description={item.description} />

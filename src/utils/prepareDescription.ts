@@ -1,10 +1,9 @@
 import { applyPreparingFunction } from "./applyPreparingFunction";
-import { colorizeText, createParagraphs, replaceItemKeywords } from "./preparingFunctions";
+import { colorizeText, createParagraphs } from "./preparingFunctions";
 
 export const prepareDescription = (description: string)=>{
 
     const preparingFunctions = [
-        replaceItemKeywords,
         colorizeText,
         createParagraphs
     ] 

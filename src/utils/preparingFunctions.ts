@@ -1,5 +1,3 @@
-import store from "@/redux/store";
-
 export const cleanItemTags = (description: string) => {
     const re = /item:\[[^\]]+\]/gi;
 
@@ -38,25 +36,3 @@ export const colorizeText = (description: string)=>{
     return result;
 }
 
-export const replaceItemKeywords = (description: string) => {
-    const state = store.getState()
-    const items = state.items.value;
-    console.log(items)
-
-    const re = /item:\[[^\]]+\]/gi;
-    let str = description;
-    const matches = [...str.matchAll(re)];
-
-    matches.map(([keywordRe]) => {
-        const item = items.find(item => item.name.en === keywordRe.slice(6, -1))
-        if(item){
-            let replaceValue = `
-                <span data-item="${item.name.en}">
-                ${item.name.en}
-                </span>`;
-            str = str.replace(keywordRe, replaceValue);
-        }
-
-    });
-    return str;
-};
