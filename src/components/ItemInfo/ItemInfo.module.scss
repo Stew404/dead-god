@@ -21,8 +21,14 @@
     text-align: center;
 }
 
-.ingame_description {
+.ingame-description {
     font-size: 1.4rem;
     text-align: center;
     color: #9bcd35;
+}
+
+.accordion-header {
+    &:hover {
+        text-decoration: underline;
+    }
 }

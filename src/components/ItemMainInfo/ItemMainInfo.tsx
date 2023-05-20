@@ -9,6 +9,13 @@ import { prepareAsideDescription } from "@/utils/prepareAsideDescription";
 import { ItemOrEmpty } from "../../types/Item";
 import ItemImage from "../ItemImage/ItemImage";
 
+import Transformations from "../Transformations/Transformations";
+
+interface InfoHeaders {
+    aside: JSX.Element,
+    tooltip: JSX.Element
+}
+
 export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: string}) {
 
     item = _.isEmpty(item) ? useAppSelector((state) => state.hoveredItem.value) : item
@@ -17,7 +24,7 @@ export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: s
         return null
     }
 
-    const headers = {
+    const headers : InfoHeaders = {
         aside: 
             <header className={styles.item__header}>
                 <div className={styles["item__info_aside"]}>
@@ -58,7 +65,7 @@ export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: s
 
     return (
         <div className={styles.item}>
-            {headers[type as keyof object]}
+            {headers[type as keyof InfoHeaders]}
             <article
                 dangerouslySetInnerHTML={{
                     __html: prepareAsideDescription(item.description),
@@ -68,11 +75,7 @@ export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: s
             </article>
             <article
                 className={styles.item__description}>
-                {item.transformations.map((transformation)=>{
-                    return <p style={{color: "#FBCEB1"}} key={transformation.id}>
-                        Часть превращения {transformation.name.en}
-                    </p>
-                })}
+                <Transformations transformations={item.transformations}/>
             </article>
         </div>
     );

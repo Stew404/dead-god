@@ -1,12 +1,12 @@
 import { applyPreparingFunction } from "./applyPreparingFunction";
-import { colorizeText, createParagraphs, addTooltips } from "./preparingFunctions";
+import { colorizeText, addTooltips, createAdditionalInfoParagraphs } from "./preparingFunctions";
 
-export const prepareDescription = (description: string)=>{
+export const prepareAdditionalInfo = (description: string)=>{
 
     const preparingFunctions = [
         colorizeText,
         addTooltips,
-        createParagraphs
+        createAdditionalInfoParagraphs
     ] 
 
     return preparingFunctions.reduce(applyPreparingFunction, description)

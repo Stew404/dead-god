@@ -1,0 +1,44 @@
+.item {
+    padding-bottom: 15px;
+}
+
+.panel {
+    padding: 10px 20px
+}
+
+.chevron {
+    margin-right: 5px;
+
+    width: 10px;
+    height: 4px;
+
+    transition: transform .2s ease;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+
+    background: none;
+    border: none;
+
+    font-size: 1.8rem;
+    font-weight: 400;
+
+    cursor: pointer;
+
+    &_opened {
+        .chevron {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.content {
+    font-size: 1.4rem;
+
+    p{
+        margin-bottom: 8px;
+    }
+}
+

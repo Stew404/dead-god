@@ -1,6 +1,8 @@
-import exp from "constants"
+export interface Pools {
+    [key: number]: string
+}
 
-interface Transformation {
+export interface Transformation {
     id: number,
     transformationId: string,
     name: {
@@ -9,7 +11,7 @@ interface Transformation {
     }
 }
 
-export interface Item {
+export interface Item extends ItemFeatures, AdditionalItemInformation{
     name: {
         en: string,
         ru: string
@@ -26,40 +28,36 @@ export interface Item {
         height: number
     },
     description: string,
-    type: string
-    opening: {        
-        text: string,
-        ending: string,
-        character: {
-            name: string,
-            type: string
-        },
-        achievment: number
-    }
-    activeType: object,
-    charges: {
-        measure: string,
-        count: number
-    },
-    isQuest: boolean,
-    pools: object,
-    bugs: string,
-    synergies: string,
-    bookOfVirtuesWisp: string,
-    judasBirthrightEffect: string,
     transformations: Transformation[],
     tags: object,
     keywords: string
 }
 
+export interface AdditionalItemInformation {
+    bugs: string,
+    learnMore: string,
+    bookOfVirtuesWisp: string,
+    judasBirthrightEffect: string,
+}
+
+export interface ItemFeatures {
+    type: "active" | "passive",
+    opening: {
+        text: string,
+        ending: string,
+        character: {
+            name: string,
+            type: "default" | "tainted",
+        }
+        achievment: string
+    },
+    activeType: "default" | "retrievable" | "disposable"
+    charges: {
+        count: string,
+        measure: "segment" | "second"
+    }
+    isQuest: boolean
+    pools : Pools
+}
+
 export type ItemOrEmpty = Item | Record<string, never>
-
-interface PostMeta {
-    icon_width: string,
-    icon_height: string
-}
-
-export interface ItemData {
-    acf: Item,
-    post_meta: PostMeta
-}
