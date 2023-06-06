@@ -5,8 +5,6 @@ import styles from "./ItemList.module.scss";
 import Item from "../Item/Item";
 import { useAppSelector } from "@/hooks";
 
-// import _ from "lodash";
-
 const ItemList = () => {
     const items = useAppSelector((state) => state.items.value);
     const isSettingsOpened = useAppSelector((state)=> state.settings.value)
