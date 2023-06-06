@@ -1,50 +1,9 @@
 import {ItemFeatures} from "@/types/Item";
 
 import styles from "./Features.module.scss"
+import { addTooltips } from "@/utils/preparingFunctions";
 
-export default function Features({ features }: {features: ItemFeatures}){
-    const {type, opening, charges, activeType, isQuest, pools} = features
-
-    const typeLabels = {
-        active: "Активный",
-        passive: "Пассивный"
-    }
-
-    const activeTypeLabels = {
-        default: "",
-        retrievable: "Доставаемый",
-        disposable: "Одноразовый"
-    }
-
-    const typeText = `${typeLabels[type]}${(type === "active" && activeType !== "default") ? ", " + activeTypeLabels[activeType] : ""}${isQuest ? ", Сюжетный" : ""}`
-
-    function chargesMeasureLabel(count: string, measure: "second" | "segment"){
-        const measureMap = {
-            segment: ["деление", "деления", "делений"],
-            second: ["секунда", "секунды", "секунд"]
-        }
-
-        switch(parseInt(count) % 10){
-            case 1:
-                return measureMap[measure][0]
-            case 2:
-            case 3:
-            case 4:
-                return measureMap[measure][1]
-            default:
-                return measureMap[measure][2]
-        }
-    }
-
-    const getChargesText = (charges: ItemFeatures["charges"]) => charges.count === "0"
-        ? "Моментальный"
-        : `${charges.measure === "second" ? "Пассивный, " : ""}${charges.count} ${chargesMeasureLabel(charges.count, charges.measure)}`
-         
-    const chargesLi = type === "active" 
-        ? <li>Заряд: {getChargesText(charges)}</li>
-        : null
-
-    const poolLabels = {
+const POOL_LABELS = {
         treasure_room: "Сокровищница",
         shop: "Магазин",
         boss: "Комната Босса",
@@ -71,80 +30,126 @@ export default function Features({ features }: {features: ItemFeatures}){
         none: "Без пула"
     }
 
+const TYPE_LABELS = {
+    active: "Активный",
+    passive: "Пассивный"
+}
+
+const ACTIVE_TYPE_LABELS = {
+    default: "",
+    retrievable: "Доставаемый",
+    disposable: "Одноразовый"
+}
+
+const ENDING_LABELS = {
+    satan: "Сатану",
+    blue_baby: "???",
+    lamb: "Ламба",
+    isaac: "Айзека",
+    boss_rush: "Босс Раш",
+    hush: "Хаша",
+    delirium: "Делириума",
+    beast: "Биста",
+    mother: "Матерь",
+    ultra_greed: "Режим жадности",
+    ultra_greedier: "Сложный режим жадности",
+    mega_satan: "Мега Сатану",
+    four_marks: "Айзека, Сатану, ??? и Ламба",
+    two_marks: "Босс Раш и Хаша"
+}
+
+const CHARACTER_LABELS = {
+    isaac: "Айзека",
+    magdalene: "Магдалену",
+    cain: "Каина",
+    judas: "Иуду",
+    bluebaby: "???",
+    eve: "Еву",
+    samson: "Самсона",
+    azazel: "Азазеля",
+    lazarus: "Лазаря",
+    eden: "Идена",
+    lost: "Лоста",
+    lilith: "Лазаря", 
+    keeper: "Хранителя",
+    apollyon: "Аполлион",
+    forgotten: "Забытого",
+    bethany: "Бетани",
+    jacob_and_esau: "Иакова и Исава"
+}
+
+export default function Features({ features: {type, opening, charges, activeType, isQuest, pools}} : {features: ItemFeatures}){
+
+    const isNotDefaultActiveType = type === "active" && activeType !== "default"
+
+    const typeText = `${TYPE_LABELS[type]}${isNotDefaultActiveType ? ", " + ACTIVE_TYPE_LABELS[activeType] : ""}${isQuest ? ", Сюжетный" : ""}`
+
+    function chargesMeasureLabel(count: string, measure: "second" | "segment"){
+        const measureMap = {
+            segment: ["деление", "деления", "делений"],
+            second: ["секунда", "секунды", "секунд"]
+        }
+
+        switch(parseInt(count) % 10){
+            case 1:
+                return measureMap[measure][0]
+            case 2:
+            case 3:
+            case 4:
+                return measureMap[measure][1]
+            default:
+                return measureMap[measure][2]
+        }
+    }
+
+    const getChargesText = ({count, measure}: ItemFeatures["charges"]) => {
+        return count === "0"
+            ? "Моментальный"
+            : `${measure === "second" ? "Пассивный, " : ""}${count} ${chargesMeasureLabel(count, measure)}`
+    }
+    const chargesLi = type === "active" 
+        ? <li>Заряд: {getChargesText(charges)}</li>
+        : null
+
     const poolsArr = Object.values(pools) 
 
-    const poolText = poolsArr.reduce((acc, pool: string, index, arr)=>{
+    const poolText = poolsArr.reduce((acc: string, pool: string, index, arr)=>{
         const isGreed = pool.includes("greed")
         pool = pool.replace("greed_", "")
 
-        return acc + `${poolLabels[pool as keyof object]}${isGreed ? " режима жадности" : ""}${arr.length-1 !== index ? ", " : ""}` 
+        return acc + `${POOL_LABELS[pool as keyof object]}${isGreed ? " режима жадности" : ""}${arr.length-1 !== index ? ", " : ""}` 
     }, "")
 
-    const endingLabels = {
-        satan: "Сатану",
-        blue_baby: "???",
-        lamb: "Ламба",
-        isaac: "Айзека",
-        boss_rush: "Босс Раш",
-        hush: "Хаша",
-        delirium: "Делириума",
-        beast: "Биста",
-        mother: "Матерь",
-        ultra_greed: "Режим жадности",
-        ultra_greedier: "Сложный режим жадности",
-        mega_satan: "Мега Сатану",
-        four_marks: "Айзека, Сатану, ??? и Ламба",
-        two_marks: "Босс Раш и Хаша"
-    }
-
-    const characterLabels = {
-        isaac: "Айзека",
-        magdalene: "Магдалену",
-        cain: "Каина",
-        judas: "Иуду",
-        bluebaby: "???",
-        eve: "Еву",
-        samson: "Самсона",
-        azazel: "Азазеля",
-        lazarus: "Лазаря",
-        eden: "Идена",
-        lost: "Лоста",
-        lilith: "Лазаря", 
-        keeper: "Хранителя",
-        apollyon: "Аполлион",
-        forgotten: "Забытого",
-        bethany: "Бетани",
-        jacob_and_esau: "Иакова и Исава"
-    }
-
-    const getTaintedText = ({name, type}: {name: string, type: string}) => {
+    const getTaintedText = (name: string) => {
         const femaleCharacters = ["magdalene", "eve", "lilith", "bethany"];
 
         const adjective = femaleCharacters.includes(name) ? "Порченую" : "Порченого"
 
-        const characterLabel = name !== "jacob_and_esau" ? characterLabels[name as keyof object] : "Якова"
+        const characterLabel = name !== "jacob_and_esau" ? CHARACTER_LABELS[name as keyof object] : "Якова"
         
         return `${adjective} ${characterLabel}`
     }
 
-    const getOpeningText = (opening: ItemFeatures["opening"]) => {
+    const getOpeningText = ({text, ending, character, achievment}: ItemFeatures["opening"]) => {
         
-        const openingText = opening.ending === "none" 
-            ? `${opening.text}`
-            : `Пройти ${endingLabels[opening.ending as keyof object]}
-            за
-            ${opening.character.type === "tainted" 
-            ? getTaintedText(opening.character) 
-            : characterLabels[opening.character.name as keyof object]}
+        const openingText = ending === "none" || !ending
+            ? `${text}`
+            : `Пройти ${ENDING_LABELS[ending as keyof object]} за
+                ${
+                character.type === "tainted" 
+                    ? getTaintedText(character.name) 
+                    : CHARACTER_LABELS[character.name as keyof object]
+                }
             `
         
-        return `${openingText} (достижение ${opening.achievment})`
+        return addTooltips(`${openingText} (достижение ${achievment})`)
 
     }
 
     const openingLi = opening.achievment !== ""
-        ? <li>
-            <span style={{color: "#F3EC06"}}>Как открыть: {getOpeningText(opening)}</span>
+        ? <li style={{display: "flex"}}>
+            <span style={{color: "#F3EC06", marginRight: "0.2em"}}>Как открыть:</span> 
+            <p dangerouslySetInnerHTML={{__html: getOpeningText(opening)}}></p>
         </li>
         : null
 

@@ -6,8 +6,6 @@ import ItemList from "../ItemList/ItemList";
 import AsidePanel from "../AsidePanel/AsidePanel";
 import ItemInfo from "../ItemInfo/ItemInfo";
 
-import { useState,useEffect } from "react";
-
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import Modal from "react-modal";
@@ -42,12 +40,6 @@ const modalStyle = {
 export default function Body() {
     const dispatch = useAppDispatch();
 
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
     const modalItem = useAppSelector((state) => state.modalItem.value);
     const modal = useAppSelector((state) => state.modal.value);
 
@@ -59,9 +51,6 @@ export default function Body() {
                 isOpen={modal}
                 style={modalStyle}
                 closeTimeoutMS={200}
-                // onAfterOpen={() => {
-                //     Tooltip.rebuild();
-                // }}
                 onRequestClose={() => {
                     dispatch(closeModal());
                 }}
@@ -73,15 +62,6 @@ export default function Body() {
             </Modal>
             
             <Tooltip className={styles.tooltip} id="modal-tooltip" place="bottom" float={true} noArrow={true} positionStrategy="absolute"/>
-        {/* 
-            {isMounted && (
-                <Tooltip
-                    place="bottom"
-                    class="tooltip"
-                    offset={{ bottom: 5 }}
-                    effect="solid"
-                ></Tooltip>
-            )} */}
         </div>
     );
 }

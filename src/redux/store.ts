@@ -4,6 +4,7 @@ import itemsReducer from "./slices/itemsSlice"
 import hoveredItemReducer from "./slices/hoveredItemSlice"
 import modalReducer from "./slices/modalSlice"
 import modalItemReducer from "./slices/modalItemSlice"
+import settingsReducer from "./slices/settingsSlice"
 
 const store = configureStore({
     reducer:{
@@ -12,6 +13,7 @@ const store = configureStore({
         hoveredItem: hoveredItemReducer,
         modal: modalReducer,
         modalItem: modalItemReducer,
+        settings: settingsReducer
     }
 })
 

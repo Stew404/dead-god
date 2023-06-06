@@ -9,13 +9,14 @@ import { useAppSelector } from "@/hooks";
 
 const ItemList = () => {
     const items = useAppSelector((state) => state.items.value);
+    const isSettingsOpened = useAppSelector((state)=> state.settings.value)
 
-    // if (_.isEmpty(items)) {
-    //     return <main />;
-    // }
+    const widthStyle = {
+        maxWidth: isSettingsOpened ? "calc(100vw - var(--aside-width) - 400px)" : "calc(100vw - var(--aside-width))"
+    }
 
     return (
-        <main className={styles.items}>
+        <main className={styles.items} style={widthStyle}>
             {items.map((item, index) => {
                 return <Item item={item} key={index} />;
             })}
