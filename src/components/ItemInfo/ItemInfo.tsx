@@ -13,32 +13,34 @@ import { prepareAdditionalInfo } from "@/utils/prepapeAdditionalInfo";
 import Transformations from "../Transformations/Transformations";
 import Features from "../Features/Features";
 
+interface accordionHeaders {
+    [name: string]: {
+        text: string,
+        color: string
+    }
+}
+
+const accordionHeaders: accordionHeaders = {
+    learnMore: {
+        text: "Узнать больше",
+        color: "#f2ecde"
+    },
+    bugs: {
+        text: "Баги",
+        color: "#da0707"
+    },
+    bookOfVirtues: {
+        text: "Огонёк Книги Добродетелей",
+        color: "#abc7f3"
+    },
+    judasBirthright: {
+        text: "Право Первородства Иуды",
+        color: "#d8c1a9"
+    }
+}
 export default function ItemInfo({ item }: {item: ItemOrEmpty}) {
 
-    interface accordionHeaders {
-        [name: string]: {
-            text: string,
-            color: string
-        }
-    }
-    const accordionHeaders: accordionHeaders = {
-        learnMore: {
-            text: "Узнать больше",
-            color: "#f2ecde"
-        },
-        bugs: {
-            text: "Баги",
-            color: "#da0707"
-        },
-        bookOfVirtues: {
-            text: "Огонёк Книги Добродетелей",
-            color: "#abc7f3"
-        },
-        judasBirthright: {
-            text: "Право Первородства Иуды",
-            color: "#d8c1a9"
-        }
-    }
+    console.log(item)
 
     const accordion = Object.entries(accordionHeaders)
 

@@ -13,6 +13,7 @@ import {Tooltip} from "react-tooltip"
 
 import { close as closeModal } from "@/redux/slices/modalSlice";
 import { clear as clearModalItem } from "@/redux/slices/modalItemSlice";
+import Settings from "../Settings/Settings";
 
 
 Modal.setAppElement("#modal");
@@ -60,6 +61,7 @@ export default function Body() {
             >
                 <ItemInfo item={modalItem}></ItemInfo>
             </Modal>
+            <Settings></Settings>
             
             <Tooltip className={styles.tooltip} id="modal-tooltip" place="bottom" float={true} noArrow={true} positionStrategy="absolute"/>
         </div>

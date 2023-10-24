@@ -5,13 +5,13 @@ import Body from "@/components/Body/Body";
 import { PrismaClient } from "@prisma/client";
 
 import { MenuItem, MenuItems } from "@/types/NavMenu";
-import { Item, ItemData } from "@/types/Item";
+import { Item } from "@/types/Item";
 
 import { useAppDispatch } from '../hooks';
 import { useEffect } from 'react';
 
 import { set } from "@/redux/slices/navMenuItemsSlice";
-import { set as setData } from "@/redux/slices/itemsSlice";
+import { itemActions } from "@/redux/slices/itemsSlice";
 
 export default function Home({navMenuItems, items}: {navMenuItems: MenuItems, items: Item[]}) {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export default function Home({navMenuItems, items}: {navMenuItems: MenuItems, it
   }, [navMenuItems])
 
   useEffect(()=>{
-    dispatch(setData(items))
+    dispatch(itemActions.setItems(items))
   }, [items])
 
   return (
@@ -58,8 +58,10 @@ export async function getStaticProps() {
 
   const prisma = new PrismaClient();
   const items = await prisma.vanillaItem.findMany({
-    include:{
-      transformations: {}
+    include: {
+      transformations: true,
+      pools: true,
+      tags: true
     },
     orderBy: {
       id: "asc"

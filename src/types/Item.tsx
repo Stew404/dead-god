@@ -1,5 +1,10 @@
-export interface Pools {
-    [key: number]: string
+export interface Pool {
+    id: number,
+    poolId: string,
+    name : {
+        ru: string,
+        en: string
+    }
 }
 
 export interface Transformation {
@@ -11,6 +16,8 @@ export interface Transformation {
     }
 }
 
+export type Quality = 0 | 1 | 2 | 3 | 4;
+
 export interface Item extends ItemFeatures, AdditionalItemInformation{
     name: {
         en: string,
@@ -21,7 +28,7 @@ export interface Item extends ItemFeatures, AdditionalItemInformation{
         ru: string
     },
     id: number,
-    quality: number,
+    quality: Quality,
     icon: {
         url: string,
         width: number,
@@ -57,7 +64,19 @@ export interface ItemFeatures {
         measure: "segment" | "second"
     }
     isQuest: boolean
-    pools : Pools
+    pools : Pool[]
 }
 
 export type ItemOrEmpty = Item | Record<string, never>
+
+export interface HidedItem {
+    name: {
+        en: string,
+        ru: string
+    },
+    icon: {
+        url: string,
+        width: number,
+        height: number
+    }
+}

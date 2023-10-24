@@ -1,24 +1,36 @@
-import { Item } from "@/types/Item"
+import { Item, Quality } from "@/types/Item"
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+
+
+export interface ItemsStateFilters{
+  quality?: Quality[]
+}
+
 interface ItemsState {
-  value: Item[];
+  items: Item[];
+  filters: ItemsStateFilters
 }
 
 const initialState: ItemsState = {
-  value: [],
+  items: [],
+  filters: {
+    quality: []
+  }
 }
 
 export const itemsSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<Item[]>)=>{
-        state.value = action.payload
+    setItems: (state, action: PayloadAction<Item[]>)=>{
+        state.items = action.payload
+    },
+    setFilterData: (state, action: PayloadAction<ItemsStateFilters>)=>{
+        state.filters = action.payload
     }
   },
 })
 
-export const { set } = itemsSlice.actions
+export const { reducer: itemsReducer, actions: itemActions } = itemsSlice
 
-export default itemsSlice.reducer

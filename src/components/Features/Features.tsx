@@ -1,34 +1,34 @@
-import {ItemFeatures} from "@/types/Item";
+import {ItemFeatures, Pool} from "@/types/Item";
 
 import styles from "./Features.module.scss"
 import { addTooltips } from "@/utils/preparingFunctions";
 
-const POOL_LABELS = {
-        treasure_room: "Сокровищница",
-        shop: "Магазин",
-        boss: "Комната Босса",
-        library: "Библиотека",
-        planetarium: "Планетарий",
-        golden_chest: "Золотой сундук",
-        red_chest: "Красный сундук",
-        old_chest: "Старый сундук",
-        beggar: "Попрошайка",
-        devil_beggar: "Дьявольский попрошайка",
-        key_master: "Мастер ключей",
-        bomb_bum: "Бомбовый попрошайка",
-        curse_room: "Проклятая комната",
-        devil_room: "Комната дьявола",
-        angel_room: "Комната ангела",
-        secret_room: "Секретная комната",
-        ultra_secret_room: "Ультра секретная комната",
-        wooden_chest: "Деревянный сундук",
-        baby_shop: "Магазин малышей",
-        moms_chest: "Мамин сундук",
-        battery_bum: "Заряженный попрошайка",
-        rotten_beggar: "Гнилой попрошайка",
-        crane_game: "Автомат с краном",
-        none: "Без пула"
-    }
+// const POOL_LABELS = {
+//         treasure_room: "Сокровищница",
+//         shop: "Магазин",
+//         boss: "Комната Босса",
+//         library: "Библиотека",
+//         planetarium: "Планетарий",
+//         golden_chest: "Золотой сундук",
+//         red_chest: "Красный сундук",
+//         old_chest: "Старый сундук",
+//         beggar: "Попрошайка",
+//         devil_beggar: "Дьявольский попрошайка",
+//         key_master: "Мастер ключей",
+//         bomb_bum: "Бомбовый попрошайка",
+//         curse_room: "Проклятая комната",
+//         devil_room: "Комната дьявола",
+//         angel_room: "Комната ангела",
+//         secret_room: "Секретная комната",
+//         ultra_secret_room: "Ультра секретная комната",
+//         wooden_chest: "Деревянный сундук",
+//         baby_shop: "Магазин малышей",
+//         moms_chest: "Мамин сундук",
+//         battery_bum: "Заряженный попрошайка",
+//         rotten_beggar: "Гнилой попрошайка",
+//         crane_game: "Автомат с краном",
+//         none: "Без пула"
+//     }
 
 const TYPE_LABELS = {
     active: "Активный",
@@ -107,17 +107,16 @@ export default function Features({ features: {type, opening, charges, activeType
             ? "Моментальный"
             : `${measure === "second" ? "Пассивный, " : ""}${count} ${chargesMeasureLabel(count, measure)}`
     }
-    const chargesLi = type === "active" 
+
+    const chargesList = type === "active" 
         ? <li>Заряд: {getChargesText(charges)}</li>
         : null
 
-    const poolsArr = Object.values(pools) 
 
-    const poolText = poolsArr.reduce((acc: string, pool: string, index, arr)=>{
-        const isGreed = pool.includes("greed")
-        pool = pool.replace("greed_", "")
+    const poolText = pools.reduce((acc: string, pool: Pool, index, arr)=>{
+        const isGreed = pool.poolId.includes("greed")
 
-        return acc + `${POOL_LABELS[pool as keyof object]}${isGreed ? " режима жадности" : ""}${arr.length-1 !== index ? ", " : ""}` 
+        return acc + `${pool.name.ru}${isGreed ? " режима жадности" : ""}${arr.length-1 !== index ? ", " : ""}` 
     }, "")
 
     const getTaintedText = (name: string) => {
@@ -146,7 +145,7 @@ export default function Features({ features: {type, opening, charges, activeType
 
     }
 
-    const openingLi = opening.achievment !== ""
+    const openingList = opening.achievment !== ""
         ? <li style={{display: "flex"}}>
             <span style={{color: "#F3EC06", marginRight: "0.2em"}}>Как открыть:</span> 
             <p dangerouslySetInnerHTML={{__html: getOpeningText(opening)}}></p>
@@ -155,9 +154,9 @@ export default function Features({ features: {type, opening, charges, activeType
 
     return (<ul className={styles.list}>
         <li>Тип: {typeText}</li>
-        {chargesLi}
+        {chargesList}
         <li>Пул: {poolText}</li>
-        {openingLi}
+        {openingList}
     </ul>)
 
 }

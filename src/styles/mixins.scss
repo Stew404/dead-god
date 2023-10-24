@@ -3,3 +3,34 @@
         background-color: #757575;
     }
 }
+
+@mixin setting($width: 50%) {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+
+    display: flex;
+    flex-direction: column;
+
+    width: $width;
+}
+
+@mixin square-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color);
+    border: 0px solid var(--text-color);
+    transition: all .1s ease-in-out;
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+
+    @include hoverEffect
+}
+
+@mixin square-checkbox-input {
+    display: none;
+    &:checked+label {
+        border: 3px solid var(--text-color);
+    }
+}

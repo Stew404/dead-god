@@ -2,7 +2,7 @@ import store from "@/redux/store";
 
 export default function getItemByName(name: string){
     const state = store.getState()
-    const items = state.items.value;
+    const items = state.items.items;
 
     return items.find(item => item.name.en === name)
 }

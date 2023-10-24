@@ -3,8 +3,13 @@
 :root {
   --text-color: #f2ecde;
   --background-color: #28282a;
+  --button-color: #585858;
+  --hover-button-color: #757575;
   
+  --header-height: 50px;
   --aside-width: 320px;
+  --settings-width: 400px;
+
 }
 
 * {
@@ -53,5 +58,15 @@ body {
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
+}
+
+@mixin setting($width: 50%) {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+
+  display: flex;
+  flex-direction: column;
+
+  width: $width;
 }
 

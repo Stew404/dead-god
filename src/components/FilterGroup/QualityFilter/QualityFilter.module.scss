@@ -1,0 +1,21 @@
+@import '../../../styles/mixins.scss';
+
+.quality-filter {
+    @include setting
+}
+
+.quality-inputlist {
+    display: flex;
+    justify-content: space-around;
+}
+
+.quality-label {
+    @include square-checkbox;
+
+    width: 30px;
+    height: 30px;
+}
+
+.quality-input {
+    @include square-checkbox-input
+}
