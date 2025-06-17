@@ -4,11 +4,13 @@ import styles from "./AsidePanel.module.scss";
 
 import _ from "lodash";
 import ItemMainInfo from "../ItemMainInfo/ItemMainInfo";
+import { useAppSelector } from "@/hooks";
 
 export default function AsidePanel() {
-    return (
-        <aside className={styles.aside}>
-            <ItemMainInfo type="aside"/>
-        </aside>
-    );
+    const hoveredItem = useAppSelector((state) => state.hoveredItem.value);
+    const asideContent = !_.isEmpty(hoveredItem) ? (
+        <ItemMainInfo item={hoveredItem} type="aside" />
+    ) : null;
+
+    return <aside className={styles.aside}>{asideContent}</aside>;
 }

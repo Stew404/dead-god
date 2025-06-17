@@ -9,10 +9,22 @@ const nextConfig = {
         port: '',
         pathname: '/wp-content/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'admin.nastyadr.ru',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
+      },
     ],
   },
   output: "standalone",
-  webpackDevMiddleware: config => {
+  webpack: config => {
     config.watchOptions = {
       poll: 1000,
       aggregateTimeout: 300,

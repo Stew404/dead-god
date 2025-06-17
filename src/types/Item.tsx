@@ -1,82 +1,106 @@
+export interface ItemWithOptions extends Item {
+    isHided?: boolean;
+}
+
+export interface BilingualObject {
+    en: string;
+    ru: string;
+}
+
+export interface Icon {
+    url: string;
+    width: number;
+    height: number;
+}
+
+type ElementType = "active" | "passive" | "trinket" | "pill" | "card_or_rune" | "pickup" | "environment" | "transformation"
+
+export interface chargesInfo {
+    count: string;
+    measure: "segment" | "second";
+}
+
+export interface OpeningObject {
+    text: string;
+    achievment: string;
+    ending?: string;
+    character?: {
+        name: string;
+        type: "default" | "tainted";
+    };
+}
+
 export interface Pool {
-    id: number,
-    poolId: string,
-    name : {
-        ru: string,
-        en: string
-    }
+    id: number;
+    name: BilingualObject;
+    poolId: string;
+}
+
+export interface Tag {
+    id: number;
+    name: BilingualObject;
+    tagId: string;
 }
 
 export interface Transformation {
-    id: number,
-    transformationId: string,
-    name: {
-        en: string,
-        ru: string
-    }
+    id: number;
+    name: BilingualObject;
+    transformationId: string;
 }
 
-export type Quality = 0 | 1 | 2 | 3 | 4;
-
-export interface Item extends ItemFeatures, AdditionalItemInformation{
-    name: {
-        en: string,
-        ru: string
-    },
-    ingameDescription: {
-        en: string,
-        ru: string
-    },
-    id: number,
-    quality: Quality,
-    icon: {
-        url: string,
-        width: number,
-        height: number
-    },
-    description: string,
-    transformations: Transformation[],
-    tags: object,
-    keywords: string
+export interface GameElement {
+    uniqueId: number;
+    id: number;
+    name: BilingualObject;
+    ingameDescription: BilingualObject;
+    icon: Icon;
+    description: string;
+    learnMore: string;
+    bugs: string;
+    type: ElementType;
+    opening: OpeningObject;
+    keywords: string;
 }
 
-export interface AdditionalItemInformation {
-    bugs: string,
-    learnMore: string,
-    bookOfVirtuesWisp: string,
-    judasBirthrightEffect: string,
+export interface Item extends GameElement {
+    quality: number;
+    activeType?: "default" | "disposable" | "retrievable";
+    charges?: chargesInfo;
+    isQuest: number;
+    bookOfVirtues?: string;
+    judasBirthright?: string;
+    pools: Pool[];
+    tags: Tag[];
+    transformations: Transformation[];
 }
 
-export interface ItemFeatures {
-    type: "active" | "passive",
-    opening: {
-        text: string,
-        ending: string,
-        character: {
-            name: string,
-            type: "default" | "tainted",
-        }
-        achievment: string
-    },
-    activeType: "default" | "retrievable" | "disposable"
-    charges: {
-        count: string,
-        measure: "segment" | "second"
-    }
-    isQuest: boolean
-    pools : Pool[]
+export interface Trinket extends GameElement {
+    tags: Tag[];
+    transformations: Transformation[];
 }
 
-export type ItemOrEmpty = Item | Record<string, never>
-
-export interface HidedItem {
-    name: {
-        en: string,
-        ru: string
-    },
-    icon: {
-        url: string,
-        width: number,
-        height: number
-    }
+export interface Pill extends GameElement {
+    class: number;
+    transformations: Transformation[];
 }
+
+export type CardOrRune = GameElement;
+export type Pickup = GameElement;
+export type Environment = GameElement;
+export type TransformationInfo = GameElement;
+
+interface AdditionalTools {
+    isHided: boolean
+}
+
+export interface AnyElement
+    extends Item,
+        Trinket,
+        CardOrRune,
+        Pill,
+        Pickup,
+        Environment,
+        TransformationInfo,
+        AdditionalTools {}
+
+export type AnyElementOrEmpty = AnyElement | Record<string, never>;

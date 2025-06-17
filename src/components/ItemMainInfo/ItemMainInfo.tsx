@@ -1,67 +1,87 @@
-import React from "react";
+import React, { ElementType } from "react";
 
 import styles from "./ItemMainInfo.module.scss";
-import { useAppSelector } from "@/hooks";
 
 import _ from "lodash";
 
 import { prepareAsideDescription } from "@/utils/prepareAsideDescription";
-import { ItemOrEmpty } from "../../types/Item";
-import ItemImage from "../ItemImage/ItemImage";
+import { AnyElement } from "../../types/Item";
+import ItemImage from "../ElementImage/ElementImage";
 
 import Transformations from "../Transformations/Transformations";
+import { getCurrentName } from "@/utils/getCurrentName";
+import { colorizeText } from "@/utils/preparingFunctions";
 
 interface InfoHeaders {
-    aside: JSX.Element,
-    tooltip: JSX.Element
+    aside: JSX.Element;
+    tooltip: JSX.Element;
 }
 
-export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: string}) {
+interface QualityInfo {
+    active: string;
+    passive: string;
+    pill: string;
+}
 
-    item = _.isEmpty(item) ? useAppSelector((state) => state.hoveredItem.value) : item
+const getQualityText = (item: AnyElement)=>{
+    const qualityInfo: QualityInfo = {
+        active: `Качество: ${item.quality}`,
+        passive: `Качество: ${item.quality}`,
+        pill: `Класс: ${item.class}`,
+    };
 
-    if(_.isEmpty(item)){
-        return null
-    }
+    return qualityInfo[item.type as keyof QualityInfo];
+}
 
-    const headers : InfoHeaders = {
-        aside: 
+export default function ItemMainInfo({
+    item,
+    type,
+}: {
+    item: AnyElement;
+    type: string;
+}) {
+    const name = getCurrentName(item.name);
+    let ingameDescription = getCurrentName(item.ingameDescription);
+    ingameDescription = colorizeText(ingameDescription);
+
+    
+
+    const qualityText = getQualityText(item);
+
+    const headers: InfoHeaders = {
+        aside: (
             <header className={styles.item__header}>
                 <div className={styles["item__info_aside"]}>
-                    <p className={styles["item__quality"]}>
-                        Качество: {item.quality}
-                    </p>
+                    <p className={styles["item__quality"]}>{qualityText}</p>
                     <p className={styles["item__id"]}>ID: {item.id}</p>
                 </div>
                 <div className={styles["item__main"]}>
-                    <h3 className={styles["item__title"]}>
-                        {item.name.en}
-                    </h3>
-                    <p className={styles["item__ingame-description"]}>
-                        &quot;{item.ingameDescription.en}&quot;
+                    <h3 className={styles["item__title"]}>{name}</h3>
+                    <p
+                        className={styles["item__ingame-description"]}
+                        dangerouslySetInnerHTML={{ __html: ingameDescription }}
+                    >
+                        {/* &quot;{ingameDescription}&quot; */}
                     </p>
                 </div>
-            </header>,
-        tooltip: 
+            </header>
+        ),
+        tooltip: (
             <header className={`${styles["item__header_tooltip"]}`}>
                 <div className={styles["item__info_tooltip"]}>
-                    <p className={styles["item__quality"]}>
-                        Качество: {item.quality}
-                    </p>
+                    <p className={styles["item__quality"]}>{qualityText}</p>
                     <p className={styles["item__id"]}>ID: {item.id}</p>
                 </div>
                 <div className={styles["item__main"]}>
-                    <h3 className={styles["item__title"]}>
-                        {item.name.en}
-                    </h3>
+                    <h3 className={styles["item__title"]}>{name}</h3>
                     <p className={styles["item__ingame-description"]}>
-                        &quot;{item.ingameDescription.en}&quot;
+                        &quot;{ingameDescription}&quot;
                     </p>
                 </div>
-                <ItemImage itemIcon={item.icon} itemName={item.name}/>
+                <ItemImage elementIcon={item.icon} elementName={item.name} />
             </header>
-
-    } 
+        ),
+    };
 
     return (
         <div className={styles.item}>
@@ -71,11 +91,9 @@ export default function ItemMainInfo({item, type} : {item?: ItemOrEmpty, type: s
                     __html: prepareAsideDescription(item.description),
                 }}
                 className={styles.item__description}
-            >
-            </article>
-            <article
-                className={styles.item__description}>
-                <Transformations transformations={item.transformations}/>
+            ></article>
+            <article className={styles.item__description}>
+                <Transformations transformations={item.transformations} />
             </article>
         </div>
     );

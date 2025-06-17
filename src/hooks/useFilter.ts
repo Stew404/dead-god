@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
-import { useAppDispatch } from "@/hooks"
-import { ItemsStateFilters, itemActions } from "@/redux/slices/itemsSlice"
+import { useAppDispatch, useAppSelector } from "@/hooks"
+import { ItemsStateFilters, setFilterData } from "@/redux/slices/itemsSlice"
 
-interface FilterUpdatePayload {
-    value: string | number,
+type FilterValue = string | number
+
+export interface FilterUpdatePayload {
+    value: FilterValue,
     key: string,
     checked: boolean
 }
@@ -12,29 +13,23 @@ export const useFilter = ()=>{
 
     const dispatch = useAppDispatch()
 
-    const [filters, setFilters] = useState<ItemsStateFilters>({})
-
-    useEffect(()=>{
-        dispatch(itemActions.setFilterData(filters))
-    }, [filters])
+    let filters = useAppSelector(state => state.items.filters)
 
     const onFiltersChange = (filter: FilterUpdatePayload)=>{
-  
-        setFilters((oldFilters) => {
-            const oldFilter = oldFilters[filter.key as keyof ItemsStateFilters];
+        const currentOldFilter: FilterValue[] = filters[filter.key as keyof ItemsStateFilters];
 
-            let newFilter
-            if(filter.checked){
-                newFilter = oldFilter ? [...oldFilter, filter.value] : [filter.value]
-            } else {
-                    newFilter = oldFilter?.filter(elem => elem != filter.value)
-            }
-            return {
-                ...oldFilters,
-                [filter.key]: newFilter
-            }
-        })
-        
+        let currentNewFilter: FilterValue[]
+        if(filter.checked){
+            currentNewFilter = currentOldFilter ? [...currentOldFilter, filter.value] : [filter.value]
+        } else {
+            currentNewFilter = currentOldFilter?.filter(elem => elem != filter.value)
+        }
+
+        const newFilters = {
+            ...filters,
+            [filter.key]: currentNewFilter
+        }
+        dispatch(setFilterData(newFilters))
     }
 
     return onFiltersChange

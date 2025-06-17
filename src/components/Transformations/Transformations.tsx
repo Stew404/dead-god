@@ -1,17 +1,28 @@
+import { getCurrentName } from "@/utils/getCurrentName";
 import { Transformation } from "@/types/Item";
 
+export default function Transformations({
+    transformations,
+}: {
+    transformations: Transformation[];
+}) {
+    if (!transformations) {
+        return null;
+    }
 
-export default function Transformations({transformations}: {transformations: Transformation[]}){
     return (
         <>
-        {
-            transformations.map((transformation: Transformation)=>{
-                return <p style={{color: "#FBCEB1", marginBottom: "15px"}} key={transformation.id}>
-                    Часть превращения {transformation.name.en}
-                </p>
-            })
-        }
+            {transformations.map((transformation: Transformation) => {
+                const name = getCurrentName(transformation.name);
+                return (
+                    <p
+                        style={{ color: "#FBCEB1", marginBottom: "15px" }}
+                        key={transformation.id}
+                    >
+                        Часть превращения {name}
+                    </p>
+                );
+            })}
         </>
-    )
+    );
 }
-

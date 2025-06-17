@@ -1,21 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface SettingsSliceState {
-  value: boolean
+  isShowed: boolean,
+  groupType: string,
+  hideType: string,
+  sortType: string,
+  namesLanguage: string,
+  isGreedModeEnabled: boolean
 }
 
 const initialState: SettingsSliceState = {
-  value: false,
+  isShowed: false,
+  groupType: "category",
+  hideType: "fade",
+  sortType: "id",
+  namesLanguage: "en",
+  isGreedModeEnabled: false
 }
 
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    toggle: (state) => {state.value = !state.value}
+    toggleShowing: (state) => {state.isShowed = !state.isShowed},
+    setGreedMode: (state, action: PayloadAction<boolean>) => {state.isGreedModeEnabled = action.payload},
+    setGroupType: (state, action: PayloadAction<string>) => {state.groupType = action.payload},
+    setHideType: (state, action: PayloadAction<string>) => {state.hideType = action.payload},
+    setSortType: (state, action: PayloadAction<string>) => {state.sortType = action.payload},
+    setNamesLanguage: (state, action: PayloadAction<string>) => {state.namesLanguage = action.payload}
   },
 })
 
-export const { toggle } = settingsSlice.actions
+export const { toggleShowing, setGreedMode, setGroupType, setHideType, setSortType, setNamesLanguage } = settingsSlice.actions
 
 export default settingsSlice.reducer

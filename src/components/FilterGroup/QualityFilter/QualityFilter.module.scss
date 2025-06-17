@@ -4,9 +4,13 @@
     @include setting
 }
 
+.quality-heading {
+    @include setting-heading;
+}
+
 .quality-inputlist {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .quality-label {

@@ -17,4 +17,12 @@
     &_opened {
         transform: translateX(0);
     }
+
+    &__row {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        max-height: 300px;
+    }
 }

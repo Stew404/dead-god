@@ -1,28 +1,27 @@
-import { Item } from "@/types/Item"
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ItemOrEmpty } from "../../types/Item";
+import { AnyElement, Item } from "@/types/Item";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface modalItemState {
-  value: ItemOrEmpty;
+    value: AnyElement;
 }
 
 const initialState: modalItemState = {
-  value: {},
-}
+    value: {} as AnyElement,
+};
 
 export const modalItemSlice = createSlice({
-  name: 'modalItem',
-  initialState,
-  reducers: {
-    set: (state, action: PayloadAction<Item>)=>{
-        state.value = action.payload
+    name: "modalItem",
+    initialState,
+    reducers: {
+        set: (state, action: PayloadAction<AnyElement>) => {
+            state.value = action.payload;
+        },
+        clear: (state) => {
+            state.value = {} as AnyElement;
+        },
     },
-    clear: (state)=>{
-        state.value = {}
-    }
-  },
-})
+});
 
-export const { set, clear } = modalItemSlice.actions
+export const { set, clear } = modalItemSlice.actions;
 
-export default modalItemSlice.reducer
+export default modalItemSlice.reducer;

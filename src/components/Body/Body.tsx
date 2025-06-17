@@ -2,19 +2,18 @@ import React from "react";
 
 import styles from "./Body.module.scss";
 
-import ItemList from "../ItemList/ItemList";
 import AsidePanel from "../AsidePanel/AsidePanel";
-import ItemInfo from "../ItemInfo/ItemInfo";
+import Settings from "../Settings/Settings";
+import MainPanel from "../MainPanel/MainPanel";
+import ElementInfo from "../ElementInfo/ElementInfo";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import Modal from "react-modal";
-import {Tooltip} from "react-tooltip"
+import { Tooltip } from "react-tooltip";
 
 import { close as closeModal } from "@/redux/slices/modalSlice";
 import { clear as clearModalItem } from "@/redux/slices/modalItemSlice";
-import Settings from "../Settings/Settings";
-
 
 Modal.setAppElement("#modal");
 
@@ -41,13 +40,16 @@ const modalStyle = {
 export default function Body() {
     const dispatch = useAppDispatch();
 
-    const modalItem = useAppSelector((state) => state.modalItem.value);
+    const modalElement = useAppSelector((state) => state.modalItem.value);
     const modal = useAppSelector((state) => state.modal.value);
 
     return (
         <div className={styles.body}>
             <AsidePanel />
-            <ItemList />
+            <MainPanel />
+
+            <Settings></Settings>
+
             <Modal
                 isOpen={modal}
                 style={modalStyle}
@@ -59,11 +61,17 @@ export default function Body() {
                     dispatch(clearModalItem());
                 }}
             >
-                <ItemInfo item={modalItem}></ItemInfo>
+                <ElementInfo element={modalElement}></ElementInfo>
             </Modal>
-            <Settings></Settings>
-            
-            <Tooltip className={styles.tooltip} id="modal-tooltip" place="bottom" float={true} noArrow={true} positionStrategy="absolute"/>
+
+            <Tooltip
+                className={styles.tooltip}
+                id="modal-tooltip"
+                place="bottom"
+                float={true}
+                noArrow={true}
+                positionStrategy="absolute"
+            />
         </div>
     );
 }

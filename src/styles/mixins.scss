@@ -12,6 +12,15 @@
     flex-direction: column;
 
     width: $width;
+
+    padding: 0.5em 0.7em;
+
+    border-bottom: 1px solid var(--text-color);
+}
+
+@mixin setting-heading {
+    font-size: 1.4rem;
+    margin-bottom: 1em;
 }
 
 @mixin square-checkbox {
@@ -33,4 +42,64 @@
     &:checked+label {
         border: 3px solid var(--text-color);
     }
+}
+
+@mixin switch-checkbox {
+    input {
+        display: none;
+    }
+
+    input+label {
+        transition: all .1s ease-in-out;
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        cursor: pointer;
+        opacity: 1;
+        width: 100%;
+        margin-right: 41px;
+        position: relative;
+        color: #cc6666;
+        user-select: none;
+    }
+
+    input:checked+label {
+        color: #ccff33;
+    }
+
+    input+label::before {
+        content: '';
+        width: 36px;
+        height: 20px;
+        background-color: #585858;
+        position: absolute;
+        right: -41px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    input+label::after {
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-color: var(--text-color);
+        position: absolute;
+        right: -23px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: .5;
+        transition: all .1s ease-in-out;
+    }
+
+    input:checked+label::after {
+        border: 0px solid var(--text-color);
+        right: -39px;
+        opacity: 1;
+    }
+}
+
+@mixin radio-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
 }
