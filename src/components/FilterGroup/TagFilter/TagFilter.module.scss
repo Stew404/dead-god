@@ -1,0 +1,40 @@
+@import '../../../styles/mixins.scss';
+
+.tag-filter {
+    @include setting(100%)
+}
+
+.tag-heading {
+    @include setting-heading;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.tag-inputlist {
+    display: flex;
+    justify-content: center;
+
+    flex-wrap: wrap;
+}
+
+.tag-label{
+    @include square-checkbox;
+
+    margin: 0 10px 10px 10px;
+
+    &:nth-child(14),
+    &:nth-child(20) {
+        width: 50px;
+    }
+}
+
+.tag-input {
+    @include square-checkbox-input;
+}
+
+.tag-img {
+    image-rendering: pixelated;
+    width: auto;
+    max-height: 32px;
+}

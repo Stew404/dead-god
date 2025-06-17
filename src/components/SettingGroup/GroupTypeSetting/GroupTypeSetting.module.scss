@@ -1,0 +1,13 @@
+@import '../../../styles/mixins.scss';
+
+.group-type-setting {
+    @include setting
+}
+
+.group-type-heading {
+    @include setting-heading
+}
+
+.group-type-label {
+    @include radio-option
+}

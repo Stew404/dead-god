@@ -1,0 +1,13 @@
+@import '../../../styles/mixins.scss';
+
+.sort-type-setting {
+    @include setting
+}
+
+.sort-type-heading {
+    @include setting-heading
+}
+
+.sort-type-label {
+    @include radio-option
+}

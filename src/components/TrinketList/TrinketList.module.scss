@@ -1,0 +1,16 @@
+.items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+
+    line-height: 1;
+
+    min-height: 0px;
+
+}
+
+.section {
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 30px;
+}

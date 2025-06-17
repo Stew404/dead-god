@@ -1,0 +1,13 @@
+@import '../../../styles/mixins.scss';
+
+.names-language-setting {
+    @include setting
+}
+
+.names-language-heading {
+    @include setting-heading
+}
+
+.names-language-label {
+    @include radio-option
+}

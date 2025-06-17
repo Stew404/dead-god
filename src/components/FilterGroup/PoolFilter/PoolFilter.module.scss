@@ -1,0 +1,86 @@
+@import '../../../styles/mixins.scss';
+
+.pool-filter {
+    @include setting(100%)
+}
+
+.pool-heading{
+    @include setting-heading;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.greed-switch{
+    @include switch-checkbox;
+}
+
+.pool-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.pool-button{
+    @include square-checkbox;
+    width: 49%;
+    height: 1.3em;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+.pool-inputlist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // grid-template-rows: repeat(14, 1fr);
+    // grid-template-columns: 1fr 1fr;
+
+    // grid-auto-flow: row;
+    // align-items: center;
+    // justify-items: center;
+    gap: 5px 10px;
+}
+
+.pool-label{
+    @include square-checkbox;
+
+    width: calc(50% - 5px);
+    height: 1.3em;
+
+    padding: 0;
+
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    &[for=pool-planetarium],
+    &[for=pool-baby_shop] {
+        margin-bottom: 5px;
+    }
+}
+.pool-input {
+    @include square-checkbox-input;
+
+    &:checked+label {
+        box-shadow: inset 0px 0px 1px 2px var(--text-color);
+        border: none;
+    }
+}
+
+.pool-placeholder {
+    width: calc(50% - 5px);
+    height: 1.3em;
+
+    &[id=planetarium]{
+        margin-bottom: 5px;
+    }
+}
+
+
+
+
